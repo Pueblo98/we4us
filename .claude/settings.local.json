@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(docker-compose ps:*)",
+      "Bash(npx tsc:*)",
+      "Bash(timeout 30 pnpm run start:dev:*)",
+      "Bash(timeout 30 pnpm dev:api:*)",
+      "Bash(npx nest start)",
+      "Bash(npx nest build:*)",
+      "Bash(curl:*)",
+      "Bash(timeout 10 node:*)",
+      "Bash(lsof:*)",
+      "Bash(node -e:*)",
+      "Bash(PGPASSWORD=we4us_dev_password psql:*)",
+      "Bash(pkill:*)",
+      "Bash(pnpm dev:api:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

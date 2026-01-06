@@ -1,0 +1,1927 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{tocloft}
+\usepackage{parskip}
+\usepackage{caption}
+
+% Colors
+\definecolor{primaryblue}{RGB}{0,82,147}
+\definecolor{accentgray}{RGB}{100,100,100}
+
+% Hyperref setup
+\hypersetup{
+    colorlinks=true,
+    linkcolor=primaryblue,
+    filecolor=primaryblue,
+    urlcolor=primaryblue,
+    citecolor=primaryblue
+}
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textcolor{accentgray}{We4Us-GBM Platform Design Research}}
+\fancyhead[R]{\small\textcolor{accentgray}{\leftmark}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% Title formatting
+\titleformat{\chapter}[display]
+{\normalfont\huge\bfseries\color{primaryblue}}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\titleformat{\section}
+{\normalfont\Large\bfseries\color{primaryblue}}{\thesection}{1em}{}
+\titleformat{\subsection}
+{\normalfont\large\bfseries\color{accentgray}}{\thesubsection}{1em}{}
+
+\onehalfspacing
+
+\begin{document}
+
+% Title Page
+\begin{titlepage}
+\centering
+\vspace*{2cm}
+{\Huge\bfseries\textcolor{primaryblue}{We4Us-GBM}\par}
+\vspace{0.5cm}
+{\Large\textcolor{accentgray}{Patient-Driven Data Sharing Platform for Glioblastoma}\par}
+\vspace{2cm}
+{\LARGE\bfseries Foundation Research Synthesis\par}
+\vspace{0.5cm}
+{\large Understanding Patient Experience, Community Dynamics, and Ethical Frameworks for Platform Design\par}
+\vspace{3cm}
+{\large Phase 0: Landscape Analysis\par}
+\vspace{0.5cm}
+{\normalsize December 2025\par}
+\vspace{3cm}
+\begin{abstract}
+\noindent This comprehensive research synthesis examines the landscape for designing We4Us-GBM, a patient-driven platform where people facing Glioblastoma Multiforme share treatment journeys, outcomes, and insights with each other. By combining community-generated knowledge with published research, the platform aims to help patients and caregivers make more informed decisions alongside their medical teams. This document synthesizes findings across seven critical research domains: patient experience and needs, competitive landscape analysis, regulatory requirements, clinical understanding of GBM, data sharing psychology and trust, community dynamics, and ethical frameworks. Each section distinguishes between patients, caregivers, and newly-diagnosed versus long-term survivors, surfaces non-obvious emotional and practical needs, flags assumptions requiring validation through direct interviews, and provides specific interview questions to test hypotheses.
+\end{abstract}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+% Executive Summary
+\chapter*{Executive Summary}
+\addcontentsline{toc}{chapter}{Executive Summary}
+
+Glioblastoma Multiforme (GBM) represents one of the most devastating diagnoses in oncology, with median survival of 14--16 months despite aggressive treatment. The profound impact of this diagnosis extends far beyond the patient, affecting families, caregivers, and entire support networks. Current information resources for GBM patients remain fragmented, scattered across waiting rooms, support groups, and disparate online communities.
+
+We4Us-GBM aims to address this gap by creating a patient-driven data-sharing platform that aggregates treatment experiences, outcomes, and lifestyle interventions while synthesizing published research. This foundation research synthesis examines the full landscape necessary to design such a platform responsibly and effectively.
+
+\textbf{Key Findings:}
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Patient Experience:} Between 50--74\% of brain tumor patients experience behavioral health disorders. The GBM journey is characterized by chaos, loss of autonomy, and isolation. Patients and caregivers express strong desires for peer connection and information that helps them understand ``what to expect.''
+
+\item \textbf{Competitive Landscape:} Platforms like PatientsLikeMe demonstrate the value of structured, quantitative patient-reported data. Key success factors include matching patients on clinical characteristics, enabling aggregated insights, and facilitating peer connections. Failures often stem from insufficient trust-building, lack of perceived value, or privacy breaches.
+
+\item \textbf{Regulatory Environment:} Patient-generated health data platforms face complex compliance requirements. Depending on platform architecture, HIPAA, FTC regulations, and state-specific laws may apply. Transparency about data use is essential for maintaining user trust.
+
+\item \textbf{Clinical Context:} The Stupp protocol (surgery, concurrent radiation/temozolomide, adjuvant temozolomide) remains standard of care. MGMT methylation status is the strongest prognostic/predictive biomarker. Platform data structures must accommodate treatment complexity, biomarker status, and outcome metrics meaningful to patients.
+
+\item \textbf{Data Sharing Psychology:} Privacy concerns are the primary barrier to health data sharing, but personal health relevance, trust in the platform, perceived benefit to others with the same condition, and control over data use are strong motivators. Pseudonymous sharing facilitates participation.
+
+\item \textbf{Community Dynamics:} Terminal illness communities require special protocols for handling member death, maintaining hope while being realistic, and preventing misinformation. Successful communities develop clear roles (veterans, advocates, newly-diagnosed) and moderation practices.
+
+\item \textbf{Ethical Framework:} The Belmont principles (respect for persons, beneficence, justice) provide foundational guidance. Specific challenges include posthumous data management, surfacing potentially distressing patterns, and protecting vulnerable users from exploitation.
+\end{itemize}
+
+\textbf{Critical Assumptions Requiring Validation:}
+
+This research synthesis is based on published literature and analogous platform experiences. Many assumptions about GBM patient-specific preferences and behaviors require direct validation through interviews. Particular areas of uncertainty include optimal identity management (anonymous vs. identified), acceptable data granularity, caregiver-specific platform needs, and willingness to share data for various secondary purposes.
+
+\chapter{Patient Experience and Needs}
+
+\section{The GBM Journey: From Diagnosis to Treatment}
+
+The glioblastoma journey represents one of the most challenging patient experiences in oncology. Research reveals a trajectory marked by profound psychological, social, and existential challenges that evolve across distinct phases: pre-diagnosis uncertainty, acute crisis at diagnosis, chronic illness adaptation, and terminal decline.
+
+\subsection{Pre-Diagnosis: The Shadow of Uncertainty}
+
+Patients typically present with symptoms that may initially be attributed to benign causes---headaches, personality changes, cognitive difficulties. The period awaiting diagnosis is characterized by maximum uncertainty and acute anxiety. Research from UK-based qualitative studies indicates that patients' anxiety is ``most acute while waiting for a formal confirmation of a malignant growth.''
+
+\textbf{Key Insight:} Many patients later report wishing they had known what questions to ask during this phase. The platform might consider specific resources for those in the ``diagnostic limbo'' phase.
+
+\subsection{Diagnosis: The Shattering of Assumptions}
+
+Receiving a GBM diagnosis precipitates what researchers describe as ``a shattering of preconscious assumptions about their life and its meaning.'' Studies report that up to 74\% of primary brain tumor patients experience significant distress at some point during their illness trajectory.
+
+The diagnosis phase is characterized by:
+\begin{itemize}[leftmargin=*]
+\item Information overload combined with difficulty processing information due to shock
+\item Immediate pressure to make treatment decisions
+\item Cognitive impairment from the tumor itself affecting decision-making capacity
+\item Family system disruption as roles and expectations shift rapidly
+\end{itemize}
+
+Research from focus groups with brain tumor patients identifies critical needs during this phase:
+\begin{itemize}[leftmargin=*]
+\item Clear, honest information delivered at an appropriate pace
+\item Connection with others who have traveled this path
+\item Practical guidance on navigating the healthcare system
+\item Emotional support that acknowledges the weight of the diagnosis
+\end{itemize}
+
+\subsection{Treatment Phase: Living with Chaos}
+
+A 2024 Swedish study examining glioblastoma patient and caregiver experiences found three dominant themes: \textit{chaos}, \textit{loss of autonomy}, and \textit{isolation}. Patients described ``dramatic changes in their life situation'' requiring constant adaptation.
+
+The standard Stupp protocol involves:
+\begin{itemize}[leftmargin=*]
+\item Surgical resection (when feasible)
+\item Six weeks of concurrent radiation therapy and daily temozolomide
+\item Six cycles of adjuvant temozolomide (5 days every 28 days)
+\end{itemize}
+
+During this phase, patients report needing:
+\begin{itemize}[leftmargin=*]
+\item Specific information about what to expect from each treatment phase
+\item Practical tips for managing side effects (fatigue, nausea, cognitive changes)
+\item Ways to maintain normalcy and meaningful activities
+\item Support for the ``scan anxiety'' experienced before each MRI
+\end{itemize}
+
+\subsection{Disease Progression: Navigating Uncertainty}
+
+For most GBM patients, disease progression occurs within 6--9 months. This phase brings renewed uncertainty and difficult decisions about second-line treatments, clinical trials, or shifting focus to quality of life.
+
+Research indicates patients at this phase often seek:
+\begin{itemize}[leftmargin=*]
+\item Information about others' experiences with recurrence
+\item Guidance on clinical trial opportunities
+\item Peer support from those who have faced similar decisions
+\item Resources for advance care planning conversations
+\end{itemize}
+
+\section{Psychological and Emotional Dimensions}
+
+\subsection{Prevalence of Psychological Distress}
+
+Research consistently demonstrates high rates of psychological distress among GBM patients:
+\begin{itemize}[leftmargin=*]
+\item 50--75\% experience behavioral health disorders related to diagnosis and treatment
+\item 15--20\% develop major depressive symptoms within eight months of diagnosis
+\item Depression rates exceed those in other oncology populations
+\item Patients with frontal lobe tumors show particular susceptibility to personality changes and loss of emotional control
+\end{itemize}
+
+Notably, very few patients receive psychiatric care despite high distress levels. This represents both a need and an opportunity for peer support platforms.
+
+\subsection{Existential Concerns}
+
+Qualitative research identifies profound existential challenges:
+\begin{itemize}[leftmargin=*]
+\item Confrontation with mortality
+\item Loss of identity as cognitive and physical capacities change
+\item Disruption of future plans and life narratives
+\item Questions about meaning and purpose
+\item Fear of burdening loved ones
+\end{itemize}
+
+\textbf{Platform Implication:} Users may need spaces to discuss existential concerns alongside clinical information. The platform tone must balance hope with realism.
+
+\section{Patient Archetypes}
+
+Based on literature review and community observation, several distinct patient archetypes emerge:
+
+\subsection{The Information Seeker}
+
+\textbf{Characteristics:}
+\begin{itemize}[leftmargin=*]
+\item Wants comprehensive data about treatments, outcomes, side effects
+\item Appreciates quantitative information and statistics
+\item May have scientific or technical background
+\item Copes through understanding and control
+\end{itemize}
+
+\textbf{Platform Needs:}
+\begin{itemize}[leftmargin=*]
+\item Detailed outcome data with appropriate confidence intervals
+\item Access to clinical literature summaries
+\item Ability to filter and compare treatment protocols
+\item Structured data visualization
+\end{itemize}
+
+\subsection{The Connection Seeker}
+
+\textbf{Characteristics:}
+\begin{itemize}[leftmargin=*]
+\item Primary need is emotional support and understanding
+\item Values peer relationships over data
+\item May share more openly about feelings and fears
+\item Finds comfort in knowing others face similar challenges
+\end{itemize}
+
+\textbf{Platform Needs:}
+\begin{itemize}[leftmargin=*]
+\item Easy connection with ``patients like me''
+\item Forum/community features for discussion
+\item Ability to share and receive emotional support
+\item Less emphasis on statistics, more on stories
+\end{itemize}
+
+\subsection{The Action-Oriented Optimizer}
+
+\textbf{Characteristics:}
+\begin{itemize}[leftmargin=*]
+\item Focused on ``what can I do?''
+\item Interested in complementary approaches, lifestyle interventions
+\item May pursue aggressive multi-modal treatment
+\item Values agency and control
+\end{itemize}
+
+\textbf{Platform Needs:}
+\begin{itemize}[leftmargin=*]
+\item Information about complementary treatments tried by others
+\item Lifestyle intervention tracking (diet, exercise, supplements)
+\item Clinical trial matching and information
+\item Tools for self-experimentation and tracking
+\end{itemize}
+
+\subsection{The Newly Diagnosed}
+
+\textbf{Characteristics:}
+\begin{itemize}[leftmargin=*]
+\item Overwhelmed and in shock
+\item Needs basic orientation to the GBM landscape
+\item Time-pressured for treatment decisions
+\item May have cognitive impairment affecting information processing
+\end{itemize}
+
+\textbf{Platform Needs:}
+\begin{itemize}[leftmargin=*]
+\item Clear, simple onboarding
+\item ``What to expect'' guides
+\item Connection with veteran patients who can provide guidance
+\item Curated, essential information (not overwhelming)
+\end{itemize}
+
+\section{Caregiver-Specific Needs}
+
+Research reveals that caregivers of GBM patients face unique and often underappreciated challenges that differ substantially from the patient experience.
+
+\subsection{The Caregiver Burden}
+
+Studies document extraordinary caregiver burden in GBM:
+\begin{itemize}[leftmargin=*]
+\item Caregivers provide substantial uncompensated care for months or years
+\item Tasks are physically, emotionally, socially, and financially demanding
+\item The rapid progression of GBM gives little time to adjust or adapt
+\item Cognitive and behavioral changes in patients create unique challenges
+\item One in five caregivers report ``high levels of financial strain''
+\item One in four have taken on additional debt due to caregiving
+\end{itemize}
+
+\textbf{Critical Finding:} Research demonstrates that caregiver mastery (sense of competence and control) is \textit{predictive of patient survival}. Supporting caregivers is not merely compassionate---it may improve patient outcomes.
+
+\subsection{Caregiver Information Needs}
+
+Caregivers report information gaps that differ from patient needs:
+\begin{itemize}[leftmargin=*]
+\item What to expect as the disease progresses
+\item How to manage behavioral and cognitive changes
+\item When and how to access palliative care
+\item How to balance caregiving with their own needs
+\item Resources for financial assistance
+\item Guidance on difficult conversations (end of life, advance directives)
+\end{itemize}
+
+\subsection{Caregiver Emotional Needs}
+
+Qualitative research reveals caregivers often:
+\begin{itemize}[leftmargin=*]
+\item Feel isolated---``no one understands what we're going through''
+\item Need permission to care for themselves
+\item Struggle with anticipatory grief while maintaining hope
+\item Experience role confusion as they become decision-makers
+\item Hide their own distress to ``be strong'' for the patient
+\end{itemize}
+
+\textbf{Platform Implication:} The platform needs dedicated caregiver spaces and resources. Caregivers may have different privacy concerns (sharing about their loved one's condition) and different support needs.
+
+\section{Language and Terminology}
+
+Research reveals meaningful gaps between clinical terminology and patient language:
+
+\begin{longtable}{p{5cm}p{5cm}p{4cm}}
+\toprule
+\textbf{Clinical Term} & \textbf{Patient Language} & \textbf{Design Implication} \\
+\midrule
+\endhead
+Progression-free survival (PFS) & ``Time until it comes back'' & Define metrics in accessible terms \\
+MGMT methylation & ``The gene thing that affects chemo'' & Provide explanations alongside technical terms \\
+Temozolomide & ``Temodar'' or ``TMZ'' & Support multiple terms/synonyms \\
+Adverse events & ``Side effects'' & Use patient-preferred language \\
+Cognitive dysfunction & ``Brain fog,'' ``memory problems'' & Capture symptom experience in patient terms \\
+Palliative care & ``Comfort care'' (often misunderstood as ``giving up'') & Address misconceptions \\
+\bottomrule
+\end{longtable}
+
+\section{Assumptions Requiring Interview Validation}
+
+\begin{enumerate}[leftmargin=*]
+\item Patients want to share treatment data with peers (vs. only receiving information)
+\item Newly diagnosed patients will engage with platform during acute crisis
+\item Quantitative outcome data is desired and not distressing
+\item Caregivers want separate spaces vs. integrated discussion
+\item Patients will share MGMT status and other biomarkers
+\item Hope and realistic information can coexist on same platform
+\end{enumerate}
+
+\section{Suggested Interview Questions}
+
+\textbf{For Patients:}
+\begin{enumerate}[leftmargin=*]
+\item Walk me through when you were first diagnosed. What information did you wish you had?
+\item Where do you currently go for information and support about your GBM?
+\item What would make you comfortable sharing your treatment experience with others?
+\item What information about other patients' experiences would be most helpful to you?
+\item How do you feel about seeing outcome statistics for people with similar situations?
+\end{enumerate}
+
+\textbf{For Caregivers:}
+\begin{enumerate}[leftmargin=*]
+\item What aspects of caregiving have been most challenging?
+\item What information do you wish you'd had earlier?
+\item Where do you turn for support? What's missing?
+\item Would you be comfortable sharing information about your loved one's journey?
+\item What would a helpful platform for caregivers look like?
+\end{enumerate}
+
+\chapter{Competitive and Adjacent Landscape}
+
+\section{PatientsLikeMe: A Model Analysis}
+
+\subsection{Platform Overview}
+
+PatientsLikeMe, founded in 2006 for ALS patients, pioneered the patient-generated health data platform model. It has grown to include over 830,000 members across 2,900+ health conditions, with approximately 43 million data points.
+
+\textbf{Core Value Proposition:} Help patients answer ``Given my status, what is the best outcome I can hope to achieve, and how do I get there?''
+
+\subsection{Strengths}
+
+\textbf{Structured Quantitative Data:}
+PatientsLikeMe distinguishes itself from qualitative forums by collecting structured data on symptoms, treatments, and outcomes. This enables:
+\begin{itemize}[leftmargin=*]
+\item Matching patients on demographic and clinical characteristics
+\item Aggregated reports showing treatment effectiveness across populations
+\item Individual longitudinal tracking with visualization
+\item Comparison of one's experience to similar patients
+\end{itemize}
+
+\textbf{Perceived Patient Benefits:}
+Survey research with PatientsLikeMe members found:
+\begin{itemize}[leftmargin=*]
+\item 72\% found the site ``moderately'' or ``very helpful'' in learning about symptoms
+\item 57\% found it helpful for understanding treatment side effects
+\item 42\% found another patient who helped them understand what taking a specific treatment was like
+\item 37\% found it helpful for decisions about starting medication
+\item Members reported improved psychological experience of living with their conditions
+\end{itemize}
+
+\textbf{Data Integrity:}
+The platform employs a Health Data Integrity team of clinical pharmacists and nurses who:
+\begin{itemize}[leftmargin=*]
+\item Connect patient-reported experiences to standardized medical coding (ICD-10, MedDRA)
+\item Ensure data can be ``rolled up'' for meaningful aggregate analysis
+\item Bridge patient language to clinical terminology
+\end{itemize}
+
+\subsection{Limitations and Challenges}
+
+\textbf{Representativeness:}
+Research notes that PatientsLikeMe users ``may not be representative of the larger patient population.'' Users tend to be:
+\begin{itemize}[leftmargin=*]
+\item More educated
+\item More engaged in their health
+\item Better access to healthcare
+\item More comfortable with technology
+\end{itemize}
+
+\textbf{Misinformation Risk:}
+Content is not reviewed by medical professionals, creating risk of:
+\begin{itemize}[leftmargin=*]
+\item Spreading medical misinformation
+\item Dangerous advice for patients with complex conditions
+\item Misinterpretation of aggregated data
+\end{itemize}
+
+\textbf{Commercial Model Concerns:}
+PatientsLikeMe sells aggregated, de-identified data to pharmaceutical companies and other partners. Research shows:
+\begin{itemize}[leftmargin=*]
+\item 87\% of members expressed concern about data being ``stolen by hackers''
+\item Commercial data use remains controversial among some users
+\item Transparency about partnerships is essential but may not fully address concerns
+\end{itemize}
+
+\textbf{Transition Challenges:}
+The platform's 2011 transition from disease-specific ``vertical'' communities to a ``generalized platform'' diluted some of the intimate community feel that characterized early condition-specific groups.
+
+\subsection{Key Takeaways for We4Us-GBM}
+
+\begin{enumerate}[leftmargin=*]
+\item Structured data collection enables unique value proposition
+\item Matching patients on clinical characteristics is highly valued
+\item Data integrity requires investment (clinical coding, standardization)
+\item Trust and transparency about data use is essential
+\item Disease-specific focus may enable deeper community than generalized platforms
+\item Active engagement correlates with perceived benefit
+\end{enumerate}
+
+\section{GBM-Specific Communities}
+
+\subsection{Current Landscape}
+
+Several resources exist specifically for the GBM community:
+
+\textbf{National Brain Tumor Society (NBTS):}
+\begin{itemize}[leftmargin=*]
+\item Advocacy organization with patient resources
+\item Hosts Glioblastoma Awareness Day (July 16)
+\item Provides support group information and educational materials
+\item Focus on advocacy and research funding
+\end{itemize}
+
+\textbf{American Brain Tumor Association (ABTA):}
+\begin{itemize}[leftmargin=*]
+\item Patient education and support
+\item Peer-to-peer mentoring programs
+\item Focus on coping strategies and quality of life
+\end{itemize}
+
+\textbf{Glioblastoma Support Network:}
+\begin{itemize}[leftmargin=*]
+\item Caregiver-focused 501(c)(3)
+\item Founded by caregivers who ``have walked the same path''
+\item Provides caregiver kits and resources
+\item Focus on practical support
+\end{itemize}
+
+\textbf{Facebook Support Groups:}
+\begin{itemize}[leftmargin=*]
+\item Multiple private groups with thousands of members
+\item High engagement and peer support
+\item Unstructured information sharing
+\item Variable quality of medical information
+\end{itemize}
+
+\textbf{Reddit (r/glioblastoma, r/braincancer):}
+\begin{itemize}[leftmargin=*]
+\item Pseudonymous peer support
+\item Questions and experience sharing
+\item Mixed patient/caregiver community
+\item Variable moderation quality
+\end{itemize}
+
+\subsection{Gaps in Current Landscape}
+
+\begin{enumerate}[leftmargin=*]
+\item \textbf{Structured Data:} No platform collects structured treatment and outcome data specifically for GBM
+\item \textbf{Peer Matching:} Limited ability to find ``patients like me'' based on clinical characteristics (MGMT status, age at diagnosis, treatment protocol)
+\item \textbf{Outcome Insights:} Aggregated learning from community experience is not systematically captured
+\item \textbf{Research Integration:} Patient experiences are not connected to published clinical evidence
+\item \textbf{Caregiver-Patient Integration:} Most resources serve one group or the other
+\end{enumerate}
+
+\section{Lessons from Platform Failures}
+
+\subsection{Google Health (2008--2012)}
+
+Google's personal health record failed despite massive resources. Key failure factors:
+\begin{itemize}[leftmargin=*]
+\item Insufficient value proposition for users
+\item Friction in data entry with limited payoff
+\item Privacy concerns about Google's data practices
+\item Lack of integration with healthcare system
+\end{itemize}
+
+\textbf{Lesson:} Data entry burden must be offset by clear, immediate value to users.
+
+\subsection{Microsoft HealthVault (2007--2019)}
+
+Another tech giant's failed health record platform:
+\begin{itemize}[leftmargin=*]
+\item Limited ecosystem adoption
+\item Unclear use cases for patients
+\item Competition from hospital patient portals
+\end{itemize}
+
+\textbf{Lesson:} Platform must fit into existing patient workflows and provide unique value.
+
+\section{Trust-Building from Successful Health Communities}
+
+Research on successful rare disease and patient communities identifies key trust-building elements:
+
+\textbf{Governance and Transparency:}
+\begin{itemize}[leftmargin=*]
+\item Clear data use policies, prominently displayed
+\item Patient involvement in governance decisions
+\item Regular communication about how data is used
+\item Transparent partnerships and funding sources
+\end{itemize}
+
+\textbf{Community Ownership:}
+\begin{itemize}[leftmargin=*]
+\item Patients as partners, not subjects
+\item Feedback mechanisms that influence platform development
+\item Recognition of contributor value
+\item Return of insights to the community
+\end{itemize}
+
+\textbf{Safety and Moderation:}
+\begin{itemize}[leftmargin=*]
+\item Clear community guidelines
+\item Responsive moderation
+\item Handling of crisis situations (suicidality, medical emergencies)
+\item Protection from scams and exploitation
+\end{itemize}
+
+\section{Assumptions Requiring Validation}
+
+\begin{enumerate}[leftmargin=*]
+\item GBM patients/caregivers are dissatisfied with current resources
+\item Structured data collection is acceptable burden given perceived value
+\item A GBM-specific platform is preferable to general cancer/brain tumor platforms
+\item Users will contribute data, not just consume
+\item Peer matching on clinical characteristics is valued
+\end{enumerate}
+
+\section{Suggested Interview Questions}
+
+\begin{enumerate}[leftmargin=*]
+\item What resources have you used to learn about GBM and connect with others?
+\item What has been most and least helpful about these resources?
+\item What's missing that you wish existed?
+\item Would you prefer a platform specifically for GBM vs. all brain tumors vs. all cancers?
+\item What would make you trust a new platform with your health information?
+\end{enumerate}
+
+\chapter{Regulatory and Legal Landscape}
+
+\section{HIPAA: Applicability and Requirements}
+
+\subsection{When HIPAA Applies}
+
+HIPAA (Health Insurance Portability and Accountability Act) applies to ``covered entities'' and their ``business associates'':
+\begin{itemize}[leftmargin=*]
+\item Covered entities: health plans, healthcare clearinghouses, healthcare providers conducting certain electronic transactions
+\item Business associates: entities performing functions on behalf of covered entities
+\end{itemize}
+
+\textbf{Critical Distinction for We4Us-GBM:}
+
+A patient-driven data platform where individuals directly share their own health information is \textit{generally not} a covered entity under HIPAA. This is a significant regulatory distinction:
+
+\begin{itemize}[leftmargin=*]
+\item Consumer-facing health apps and platforms collecting data directly from users typically fall outside HIPAA
+\item This creates both flexibility and responsibility---HIPAA's protections don't automatically apply
+\item Other regulations (FTC Act, state privacy laws) may apply instead
+\end{itemize}
+
+\textbf{Exception:} If the platform receives protected health information from a healthcare provider or health plan (e.g., integration with electronic health records), HIPAA business associate requirements would apply.
+
+\subsection{Key HIPAA Principles (If Applicable)}
+
+Even if not legally required, HIPAA provides useful guidance for platform design:
+
+\textbf{Privacy Rule:}
+\begin{itemize}[leftmargin=*]
+\item Establishes patient rights regarding their health information
+\item Requires minimum necessary use of protected health information
+\item Mandates privacy notices and patient consent for many disclosures
+\end{itemize}
+
+\textbf{Security Rule:}
+\begin{itemize}[leftmargin=*]
+\item Administrative safeguards: policies, training, risk assessment
+\item Physical safeguards: facility access controls, workstation security
+\item Technical safeguards: access controls, audit logs, encryption
+\end{itemize}
+
+\textbf{Breach Notification Rule:}
+\begin{itemize}[leftmargin=*]
+\item Requires notification to affected individuals within 60 days
+\item Media notification for breaches affecting 500+ individuals
+\item HHS notification requirements
+\end{itemize}
+
+\section{FTC Regulation of Health Apps}
+
+The Federal Trade Commission Act Section 5 prohibits unfair or deceptive practices, including:
+\begin{itemize}[leftmargin=*]
+\item Making false claims about data security
+\item Failing to honor privacy promises
+\item Inadequate data security leading to harm
+\end{itemize}
+
+\textbf{FTC Health Breach Notification Rule:}
+Applies to personal health record vendors and related entities not covered by HIPAA:
+\begin{itemize}[leftmargin=*]
+\item Requires breach notification to consumers, FTC, and media
+\item Applies to ``personal health records'' provided by vendors
+\item Enforcement has increased for health apps
+\end{itemize}
+
+\section{GDPR Considerations}
+
+If the platform serves EU users, GDPR applies with heightened requirements for health data (``special category data''):
+
+\textbf{Lawful Basis Required:}
+\begin{itemize}[leftmargin=*]
+\item Explicit consent is typically required for health data processing
+\item Consent must be freely given, specific, informed, and unambiguous
+\item Must be as easy to withdraw as to give
+\end{itemize}
+
+\textbf{Data Subject Rights:}
+\begin{itemize}[leftmargin=*]
+\item Right to access personal data
+\item Right to rectification
+\item Right to erasure (``right to be forgotten'')
+\item Right to data portability
+\item Right to object to processing
+\end{itemize}
+
+\textbf{Design Requirements:}
+\begin{itemize}[leftmargin=*]
+\item Data protection by design and default
+\item Data minimization
+\item Storage limitation
+\item Records of processing activities
+\end{itemize}
+
+\section{FDA Digital Health Considerations}
+
+The FDA regulates ``medical devices,'' which may include some health software.
+
+\textbf{When FDA Applies:}
+\begin{itemize}[leftmargin=*]
+\item Software that diagnoses, treats, cures, mitigates, or prevents disease
+\item Clinical decision support that is not transparent or is not intended for independent review by healthcare professional
+\end{itemize}
+
+\textbf{When FDA Typically Does Not Apply:}
+\begin{itemize}[leftmargin=*]
+\item Platforms for tracking and sharing health information
+\item Patient community and support tools
+\item General health and wellness applications
+\item Platforms that present information for user/clinician review without making recommendations
+\end{itemize}
+
+\textbf{We4Us-GBM Implications:}
+
+The platform should avoid making diagnostic or treatment recommendations. Features should:
+\begin{itemize}[leftmargin=*]
+\item Present data for user interpretation
+\item Encourage discussion with healthcare providers
+\item Avoid language suggesting platform insights are medical advice
+\end{itemize}
+
+\section{State Privacy Laws}
+
+\textbf{California (CCPA/CPRA):}
+\begin{itemize}[leftmargin=*]
+\item Applies to for-profit businesses meeting revenue/data thresholds
+\item Requires disclosure of data collection and sharing practices
+\item Provides consumer rights (access, deletion, opt-out of sale)
+\item Special provisions for ``sensitive personal information'' including health data
+\end{itemize}
+
+\textbf{Other State Laws:}
+A patchwork of state privacy laws is emerging (Virginia, Colorado, Connecticut, Utah, etc.) with varying requirements. Platform should monitor and plan for multi-state compliance.
+
+\section{Consent Framework Design}
+
+Based on research about patient preferences and regulatory requirements, We4Us-GBM should implement a robust consent framework:
+
+\textbf{Dynamic Consent Model:}
+\begin{itemize}[leftmargin=*]
+\item Allow users to specify and modify consent preferences over time
+\item Granular control over data types and uses
+\item Easy-to-understand interface, not buried legal language
+\item Regular re-engagement to confirm preferences
+\end{itemize}
+
+\textbf{Transparency Requirements:}
+\begin{itemize}[leftmargin=*]
+\item Clear description of all data uses
+\item Identification of all data recipients
+\item Explanation of security measures
+\item Notice of any commercial arrangements
+\end{itemize}
+
+\textbf{User Rights:}
+\begin{itemize}[leftmargin=*]
+\item Access to personal data in usable format
+\item Ability to correct inaccurate information
+\item Ability to delete data
+\item Ability to withdraw from platform
+\end{itemize}
+
+\section{Research Partnerships and IRB}
+
+If platform data is used for formal research:
+
+\textbf{IRB Requirements:}
+\begin{itemize}[leftmargin=*]
+\item Institutional Review Board approval for human subjects research
+\item Informed consent specific to research use
+\item Ongoing oversight of research activities
+\end{itemize}
+
+\textbf{Research Consent Best Practices:}
+\begin{itemize}[leftmargin=*]
+\item Separate consent for research use from platform participation
+\item Describe specific research purposes
+\item Allow users to opt-in to research opportunities
+\item Return research findings to community
+\end{itemize}
+
+\section{Liability Considerations}
+
+\textbf{Potential Liability Areas:}
+\begin{itemize}[leftmargin=*]
+\item Misinterpretation of platform data leading to harm
+\item Privacy breaches exposing sensitive health information
+\item Misinformation spread through platform
+\item Failure to intervene in user crisis situations
+\end{itemize}
+
+\textbf{Risk Mitigation Strategies:}
+\begin{itemize}[leftmargin=*]
+\item Clear terms of service and disclaimers
+\item Statement that platform does not provide medical advice
+\item Encouragement to consult healthcare providers
+\item Robust data security measures
+\item Content moderation policies
+\item Protocols for handling crisis situations
+\end{itemize}
+
+\section{Assumptions Requiring Validation}
+
+\begin{enumerate}[leftmargin=*]
+\item Users understand and accept that platform is not medical advice
+\item Users will engage with consent processes (not just click through)
+\item Granular consent options are valued vs. overwhelming
+\item Users accept data use for platform improvement
+\end{enumerate}
+
+\section{Suggested Interview Questions}
+
+\begin{enumerate}[leftmargin=*]
+\item How do you feel about sharing your health information online?
+\item What would you want to know about how your data is used?
+\item Would you be comfortable with your data being used for research?
+\item What would need to be true for you to trust a platform with this information?
+\item How would you feel about your data being shared with pharmaceutical companies?
+\end{enumerate}
+
+\chapter{Clinical Understanding of GBM}
+
+\section{Disease Overview}
+
+Glioblastoma Multiforme (GBM) is the most common and aggressive primary brain tumor in adults, classified as WHO Grade IV. Key clinical characteristics:
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Incidence:} Approximately 3 per 100,000 adults
+\item \textbf{Median age at diagnosis:} 64 years
+\item \textbf{Median survival:} 14--16 months with standard treatment
+\item \textbf{5-year survival rate:} Less than 10\%
+\item \textbf{2-year survival rate:} Approximately 27\%
+\end{itemize}
+
+\section{Standard of Care: The Stupp Protocol}
+
+Established by the landmark 2005 Stupp trial published in the \textit{New England Journal of Medicine}, the standard treatment protocol includes:
+
+\textbf{Phase 1: Surgical Resection}
+\begin{itemize}[leftmargin=*]
+\item Maximum safe resection when feasible
+\item Goal: reduce tumor burden while preserving function
+\item Extent of resection correlates with survival
+\item Some tumors are unresectable due to location
+\end{itemize}
+
+\textbf{Phase 2: Concurrent Chemoradiation}
+\begin{itemize}[leftmargin=*]
+\item 60 Gy radiation in 30 fractions over 6 weeks
+\item Daily temozolomide 75 mg/m² during radiation
+\item Antibiotic prophylaxis (Pneumocystis prevention)
+\end{itemize}
+
+\textbf{Phase 3: Adjuvant Chemotherapy}
+\begin{itemize}[leftmargin=*]
+\item Six cycles of temozolomide (150--200 mg/m²)
+\item 5 days on, 23 days off per cycle
+\item Some protocols extend beyond 6 cycles
+\end{itemize}
+
+\textbf{Trial Results:}
+\begin{itemize}[leftmargin=*]
+\item Median overall survival: 14.6 months (vs. 12.1 months RT alone)
+\item 2-year survival: 26.5\% (vs. 10.4\%)
+\item Established temozolomide + radiation as standard of care
+\end{itemize}
+
+\section{Molecular Markers and Prognosis}
+
+\subsection{MGMT Methylation}
+
+\textbf{O6-Methylguanine-DNA Methyltransferase (MGMT)} promoter methylation is the most important prognostic/predictive biomarker in GBM:
+
+\begin{itemize}[leftmargin=*]
+\item Present in approximately 45\% of GBM
+\item MGMT enzyme repairs DNA damage caused by temozolomide
+\item Methylated promoter silences MGMT, improving temozolomide response
+\item Methylated vs. unmethylated median survival: 21.7 vs. 12.7 months
+\item 2-year survival: 46\% vs. 13.8\%
+\end{itemize}
+
+\textbf{Platform Implications:}
+\begin{itemize}[leftmargin=*]
+\item MGMT status is critical for patient matching and outcome comparison
+\item Users should be able to indicate and filter by MGMT status
+\item Education about MGMT significance is needed
+\end{itemize}
+
+\subsection{IDH Mutation Status}
+
+\textbf{Isocitrate Dehydrogenase (IDH)} mutation status:
+\begin{itemize}[leftmargin=*]
+\item By current WHO classification, GBM is defined as IDH-wildtype
+\item IDH-mutant tumors (previously sometimes called GBM) have better prognosis
+\item Now classified as astrocytoma Grade 4 if IDH-mutant
+\item Important for accurate patient matching
+\end{itemize}
+
+\subsection{Other Molecular Markers}
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{EGFR amplification:} Common in GBM, potential therapeutic target
+\item \textbf{TERT promoter mutations:} Present in most GBM
+\item \textbf{ATRX loss:} More common in lower-grade gliomas
+\item \textbf{1p/19q codeletion:} Defines oligodendroglioma (not GBM)
+\end{itemize}
+
+\section{Treatment Beyond Standard Protocol}
+
+\subsection{Tumor Treating Fields (TTFields)}
+
+\begin{itemize}[leftmargin=*]
+\item Optune device delivering alternating electric fields
+\item Added to maintenance temozolomide
+\item Extended median survival by several months in trials
+\item Requires wearing device 18+ hours daily
+\item Controversial cost-benefit ratio
+\end{itemize}
+
+\subsection{Bevacizumab}
+
+\begin{itemize}[leftmargin=*]
+\item Anti-angiogenic therapy (anti-VEGF)
+\item Approved for recurrent GBM
+\item Improves progression-free survival but not overall survival
+\item May improve quality of life, reduce steroid dependence
+\end{itemize}
+
+\subsection{Clinical Trials}
+
+Common investigational approaches:
+\begin{itemize}[leftmargin=*]
+\item Immunotherapies (checkpoint inhibitors, CAR-T cells, vaccines)
+\item Targeted therapies based on molecular profiling
+\item Novel radiation approaches
+\item Combination strategies
+\end{itemize}
+
+\section{Common Symptoms and Side Effects}
+
+\textbf{Tumor-Related Symptoms:}
+\begin{itemize}[leftmargin=*]
+\item Headaches (often worse in morning)
+\item Cognitive changes (memory, concentration, processing speed)
+\item Personality and behavioral changes
+\item Seizures (30--50\% of patients)
+\item Focal neurological deficits (weakness, vision changes, speech problems)
+\item Fatigue
+\end{itemize}
+
+\textbf{Treatment-Related Side Effects:}
+
+\textit{Radiation:}
+\begin{itemize}[leftmargin=*]
+\item Fatigue
+\item Hair loss in treatment area
+\item Skin changes
+\item Cognitive effects (may be delayed)
+\end{itemize}
+
+\textit{Temozolomide:}
+\begin{itemize}[leftmargin=*]
+\item Nausea
+\item Fatigue
+\item Myelosuppression (low blood counts)
+\item Increased infection risk
+\end{itemize}
+
+\textit{Steroids (commonly used):}
+\begin{itemize}[leftmargin=*]
+\item Weight gain, fluid retention
+\item Blood sugar elevation
+\item Mood changes, insomnia
+\item Muscle weakness
+\end{itemize}
+
+\textit{Anti-seizure medications:}
+\begin{itemize}[leftmargin=*]
+\item Levetiracetam (Keppra): fatigue, mood changes (``Keppra rage'')
+\item Other options with various side effect profiles
+\end{itemize}
+
+\section{Outcome Metrics}
+
+Understanding outcome metrics is essential for meaningful data collection and presentation:
+
+\textbf{Clinical Trial Metrics:}
+\begin{itemize}[leftmargin=*]
+\item \textbf{Overall Survival (OS):} Time from diagnosis/treatment to death
+\item \textbf{Progression-Free Survival (PFS):} Time until tumor regrowth
+\item \textbf{Objective Response Rate (ORR):} Proportion with tumor shrinkage
+\end{itemize}
+
+\textbf{Patient-Relevant Metrics:}
+\begin{itemize}[leftmargin=*]
+\item Quality of life measures
+\item Functional status (Karnofsky Performance Status)
+\item Symptom burden
+\item Time to functional decline
+\item Ability to maintain daily activities
+\end{itemize}
+
+\textbf{Platform Consideration:} Patients may value quality-of-life outcomes as much or more than survival metrics. Data collection should capture what matters to patients.
+
+\section{Complementary and Alternative Treatments}
+
+Research and community observation indicate common complementary approaches tried by GBM patients:
+
+\textbf{Dietary Interventions:}
+\begin{itemize}[leftmargin=*]
+\item Ketogenic diet (reducing glucose availability)
+\item Anti-inflammatory diets
+\item Fasting/caloric restriction
+\item Specific supplements
+\end{itemize}
+
+\textbf{Supplements:}
+\begin{itemize}[leftmargin=*]
+\item Curcumin
+\item Boswellia
+\item CBD/cannabis products
+\item Medicinal mushrooms
+\item Various vitamins and antioxidants
+\end{itemize}
+
+\textbf{Mind-Body Approaches:}
+\begin{itemize}[leftmargin=*]
+\item Meditation, mindfulness
+\item Yoga
+\item Acupuncture
+\item Counseling, psychotherapy
+\end{itemize}
+
+\textbf{Platform Consideration:} Evidence for complementary approaches varies widely. Platform should enable sharing of patient experiences without endorsing unproven treatments or discouraging evidence-based care.
+
+\section{Assumptions Requiring Validation}
+
+\begin{enumerate}[leftmargin=*]
+\item Patients understand and can report their MGMT status
+\item Patients are willing to share detailed treatment protocols
+\item Patients value outcome data from similar patients
+\item Quality of life metrics are desired alongside survival data
+\item Patients want to track and share complementary treatment use
+\end{enumerate}
+
+\section{Suggested Interview Questions}
+
+\begin{enumerate}[leftmargin=*]
+\item What do you know about your tumor's molecular characteristics (MGMT, IDH)?
+\item What outcomes matter most to you---how would you define ``doing well''?
+\item Are you using any complementary treatments or lifestyle approaches?
+\item What would you want to know about other patients' treatment experiences?
+\item How do you feel about tracking and sharing symptom data?
+\end{enumerate}
+
+\chapter{Data Sharing Psychology and Trust}
+
+\section{Motivations for Sharing Health Data}
+
+Research on health data sharing reveals several key motivators:
+
+\subsection{Altruistic Motivations}
+
+\textbf{Helping Others with Same Condition:}
+\begin{itemize}[leftmargin=*]
+\item Consistently ranked as strongest motivator
+\item ``Knowing the study using my data could help patients with my health condition'' rated most important
+\item Patients want their experience to benefit others on similar journeys
+\item Sense of community contribution
+\end{itemize}
+
+\textbf{Advancing Research:}
+\begin{itemize}[leftmargin=*]
+\item Contributing to scientific understanding
+\item Potentially helping future patients
+\item ``Leaving a legacy'' especially relevant for terminal illness
+\end{itemize}
+
+\subsection{Personal Benefit Motivations}
+
+\textbf{Self-Understanding:}
+\begin{itemize}[leftmargin=*]
+\item Learning from patterns in own data
+\item Comparing experience to similar patients
+\item Better communication with healthcare providers
+\end{itemize}
+
+\textbf{Social Support:}
+\begin{itemize}[leftmargin=*]
+\item Connection with peers
+\item Feeling less alone
+\item Sharing struggles and successes
+\end{itemize}
+
+\textbf{Practical Information:}
+\begin{itemize}[leftmargin=*]
+\item Learning what to expect
+\item Treatment tips and strategies
+\item Managing symptoms and side effects
+\end{itemize}
+
+\subsection{Issue Relevance and Personal Salience}
+
+Research consistently finds that willingness to share increases when:
+\begin{itemize}[leftmargin=*]
+\item The condition is personally relevant
+\item The data use purpose is clearly connected to the condition
+\item Benefits return to the affected community
+\end{itemize}
+
+\textbf{Implication for GBM:} A GBM-specific platform may generate greater sharing willingness than a general cancer platform because of heightened issue relevance.
+
+\section{Barriers to Sharing Health Data}
+
+\subsection{Privacy and Security Concerns}
+
+Privacy concerns are the most commonly identified barrier across studies:
+
+\textbf{Specific Concerns:}
+\begin{itemize}[leftmargin=*]
+\item Data being ``stolen by hackers'' (87\% concerned in one study)
+\item Information reaching insurance companies
+\item Future discrimination based on health status
+\item Loss of control over personal information
+\item Potential for re-identification from ``anonymous'' data
+\end{itemize}
+
+\textbf{Privacy-Protective Behaviors:}
+Research shows that unaddressed privacy concerns lead patients to:
+\begin{itemize}[leftmargin=*]
+\item Withhold clinically relevant information from providers
+\item Misreport or omit sensitive information
+\item Avoid using health platforms entirely
+\end{itemize}
+
+\subsection{Concerns About Data Use}
+
+\textbf{Commercial Use Concerns:}
+\begin{itemize}[leftmargin=*]
+\item Strong aversion to data reaching insurance companies
+\item Concern about pharmaceutical company access
+\item Perception that commercial entities prioritize profit over patient welfare
+\item Feeling of exploitation---``my data is valuable but I don't benefit''
+\end{itemize}
+
+\textbf{Research Use:}
+\begin{itemize}[leftmargin=*]
+\item Generally more acceptable than commercial use
+\item University research viewed more favorably than industry research
+\item Concerns about data use for projects that don't align with values
+\end{itemize}
+
+\subsection{Trust Deficits}
+
+\textbf{Factors Eroding Trust:}
+\begin{itemize}[leftmargin=*]
+\item Negative past experiences with data breaches
+\item Lack of transparency about data practices
+\item Perceived misalignment between platform and user interests
+\item Not seeing benefit from data contribution
+\item Unfamiliar or unaccountable data recipients
+\end{itemize}
+
+\subsection{Practical Barriers}
+
+\begin{itemize}[leftmargin=*]
+\item Data entry burden vs. perceived benefit
+\item Poor health literacy affecting ability to share accurately
+\item Cognitive impairment (especially relevant for GBM)
+\item Technical barriers for some users
+\end{itemize}
+
+\section{Identity and Anonymity}
+
+Research reveals nuanced preferences around identity in health sharing:
+
+\subsection{Benefits of Anonymity}
+
+\begin{itemize}[leftmargin=*]
+\item Reduces fear of discrimination
+\item Enables sharing of stigmatized or embarrassing information
+\item Lowers barrier to participation
+\item Protects from real-world consequences
+\end{itemize}
+
+\subsection{Benefits of Identity}
+
+\begin{itemize}[leftmargin=*]
+\item Enables deeper peer relationships
+\item Increases perceived authenticity of shared information
+\item Allows for personal connection and support
+\item May increase sense of accountability
+\end{itemize}
+
+\subsection{Pseudonymous Option}
+
+Research suggests pseudonymous sharing (consistent identity not linked to real name) offers a middle ground:
+\begin{itemize}[leftmargin=*]
+\item Enables relationship building
+\item Protects real-world identity
+\item Allows for reputation and history within community
+\item Facilitates ongoing support relationships
+\end{itemize}
+
+\textbf{Recommendation:} Offer flexible identity options---users may prefer anonymity for some sharing and pseudonymous/identified for other interactions.
+
+\section{Building Trust: Evidence-Based Strategies}
+
+\subsection{Transparency}
+
+\textbf{Required Elements:}
+\begin{itemize}[leftmargin=*]
+\item Clear, plain-language explanation of all data uses
+\item Specific identification of data recipients
+\item Explanation of how data is protected
+\item Regular communication about platform activities
+\item Honest acknowledgment of limitations and risks
+\end{itemize}
+
+\subsection{User Control}
+
+Research strongly supports giving users control over:
+\begin{itemize}[leftmargin=*]
+\item What data is shared
+\item Who can access data
+\item How data is used
+\item Duration of data retention
+\item Ability to modify or delete
+\end{itemize}
+
+\textbf{Dynamic Consent:}
+Rather than one-time consent, allow ongoing refinement of preferences with:
+\begin{itemize}[leftmargin=*]
+\item Granular opt-in/opt-out for specific uses
+\item Easy-to-use preference management
+\item Regular prompts to review and update preferences
+\end{itemize}
+
+\subsection{Feedback and Return of Value}
+
+Trust increases when users see tangible benefit from data sharing:
+\begin{itemize}[leftmargin=*]
+\item Regular reports on how data is being used
+\item Sharing of insights generated from community data
+\item Notification when data contributes to research
+\item Making aggregated findings available to contributors
+\end{itemize}
+
+\subsection{Governance and Accountability}
+
+\begin{itemize}[leftmargin=*]
+\item Patient/user representation in governance
+\item External oversight or advisory boards
+\item Clear policies with enforcement mechanisms
+\item Responsive complaint handling
+\end{itemize}
+
+\section{Data Sensitivity Hierarchy}
+
+Research suggests varying comfort levels with sharing different data types:
+
+\textbf{More Comfortable Sharing:}
+\begin{itemize}[leftmargin=*]
+\item Diagnosis information
+\item Treatment protocols
+\item General health status
+\item Symptom experiences
+\end{itemize}
+
+\textbf{Less Comfortable Sharing:}
+\begin{itemize}[leftmargin=*]
+\item Genetic/genomic information
+\item Mental health details
+\item Financial information
+\item Family medical history
+\end{itemize}
+
+\textbf{GBM-Specific Considerations:}
+\begin{itemize}[leftmargin=*]
+\item MGMT status may feel sensitive (linked to prognosis)
+\item Cognitive symptoms may be embarrassing
+\item End-of-life preferences are deeply personal
+\item Family implications of diagnosis
+\end{itemize}
+
+\section{What Destroys Trust}
+
+Case studies identify trust-breaking events:
+
+\textbf{Data Breaches:}
+\begin{itemize}[leftmargin=*]
+\item Healthcare breaches among most damaging
+\item Even minor incidents can permanently damage trust
+\item Recovery is extremely difficult
+\end{itemize}
+
+\textbf{Undisclosed Commercial Arrangements:}
+\begin{itemize}[leftmargin=*]
+\item Discovery of hidden data sales
+\item Surprise partnerships with unpopular entities
+\item Perception of putting profit before users
+\end{itemize}
+
+\textbf{Broken Promises:}
+\begin{itemize}[leftmargin=*]
+\item Changing privacy policies without clear notice
+\item Using data in ways not originally consented to
+\item Failing to honor deletion requests
+\end{itemize}
+
+\textbf{Poor Crisis Response:}
+\begin{itemize}[leftmargin=*]
+\item Slow or inadequate breach notification
+\item Defensive rather than accountable posture
+\item Failure to remediate harm
+\end{itemize}
+
+\section{Assumptions Requiring Validation}
+
+\begin{enumerate}[leftmargin=*]
+\item GBM patients are motivated to share data to help others
+\item Privacy concerns are manageable with appropriate controls
+\item Pseudonymous sharing is acceptable/preferred
+\item Users will engage with consent management features
+\item Trust can be built through transparency alone
+\item Data sharing motivations are consistent across patient archetypes
+\end{enumerate}
+
+\section{Suggested Interview Questions}
+
+\begin{enumerate}[leftmargin=*]
+\item Have you ever shared health information online? What was that experience like?
+\item What would motivate you to share your GBM experience with others?
+\item What concerns would you have about sharing your health data?
+\item How would you prefer to be identified---real name, username, anonymous?
+\item What would you need to see to trust a new platform with your information?
+\item How would you feel about your data being used for research? For commercial purposes?
+\item What control would you want over who sees your information?
+\end{enumerate}
+
+\chapter{Community Dynamics}
+
+\section{Handling Death and Decline}
+
+In terminal illness communities, death is an ever-present reality that profoundly shapes community dynamics.
+
+\subsection{Challenges}
+
+\begin{itemize}[leftmargin=*]
+\item Grief affects entire community when members die
+\item Newly diagnosed may find death discussions distressing
+\item Long-term survivors may experience ``survivor guilt''
+\item Caregivers may continue to need community after patient death
+\item Balance needed between acknowledging reality and maintaining hope
+\end{itemize}
+
+\subsection{Best Practices from Existing Communities}
+
+\textbf{Memorial Protocols:}
+\begin{itemize}[leftmargin=*]
+\item Designated spaces for remembering deceased members
+\item Clear processes for announcing deaths
+\item Opportunity for community to share memories
+\item Sensitivity to varying grief responses
+\end{itemize}
+
+\textbf{Bereavement Support:}
+\begin{itemize}[leftmargin=*]
+\item Continued access for bereaved caregivers
+\item Bereavement-specific support spaces
+\item Connection to external grief resources
+\item Recognition that grief timeline varies
+\end{itemize}
+
+\textbf{Hope and Realism Balance:}
+\begin{itemize}[leftmargin=*]
+\item Allowing honest discussion of prognosis
+\item Not censoring difficult conversations
+\item Highlighting long-term survivors without creating false expectations
+\item Acknowledging uncertainty
+\end{itemize}
+
+\subsection{Posthumous Data Considerations}
+
+\begin{itemize}[leftmargin=*]
+\item Should data remain after member death?
+\item Can family access deceased member's account?
+\item How to handle ongoing contributions to aggregated insights?
+\item Privacy preferences after death
+\end{itemize}
+
+\textbf{Policy Recommendations:}
+\begin{itemize}[leftmargin=*]
+\item Allow users to specify data handling preferences in advance
+\item Offer options: maintain data anonymously, remove data, designate data steward
+\item Default to privacy protection
+\item Clear communication about community norms around death
+\end{itemize}
+
+\section{Misinformation and Dangerous Advice}
+
+\subsection{The Challenge}
+
+Patient communities inevitably encounter:
+\begin{itemize}[leftmargin=*]
+\item Anecdotal reports of unproven treatments
+\item Misunderstanding of clinical evidence
+\item Well-meaning but incorrect medical advice
+\item Occasional bad actors promoting fraudulent treatments
+\end{itemize}
+
+\textbf{Specific Risks for GBM:}
+\begin{itemize}[leftmargin=*]
+\item Desperate patients vulnerable to exploitation
+\item Cognitive impairment may reduce critical evaluation
+\item Time pressure creates urgency around treatment decisions
+\item Complementary treatment discussions may delay evidence-based care
+\end{itemize}
+
+\subsection{Moderation Strategies}
+
+\textbf{Proactive Education:}
+\begin{itemize}[leftmargin=*]
+\item Clear explanation of evidence levels
+\item Distinguish anecdote from evidence
+\item Provide context for treatment discussions
+\item Connect community insights to published research
+\end{itemize}
+
+\textbf{Community Guidelines:}
+\begin{itemize}[leftmargin=*]
+\item Prohibit guaranteed cure claims
+\item Require disclosure of financial interests
+\item Encourage ``this is my experience, not medical advice'' framing
+\item Provide clear guidelines about what discussions are welcome
+\end{itemize}
+
+\textbf{Content Review:}
+\begin{itemize}[leftmargin=*]
+\item Community flagging mechanisms
+\item Review of potentially harmful content
+\item Clear escalation path for dangerous advice
+\item Balance moderation with free expression
+\end{itemize}
+
+\textbf{Expert Input:}
+\begin{itemize}[leftmargin=*]
+\item Periodic expert review of common discussions
+\item Expert-authored content on frequent questions
+\item Clear identification of expert vs. peer input
+\end{itemize}
+
+\section{Community Roles and Dynamics}
+
+Research on patient communities identifies emergent roles:
+
+\subsection{The Veteran/Elder}
+
+\begin{itemize}[leftmargin=*]
+\item Long-term survivor or experienced caregiver
+\item Provides guidance to newly diagnosed
+\item Shares institutional knowledge
+\item May hold formal or informal leadership role
+\end{itemize}
+
+\textbf{Platform Support:}
+\begin{itemize}[leftmargin=*]
+\item Mentorship program matching
+\item Recognition of veteran contributors
+\item Training for peer support role
+\end{itemize}
+
+\subsection{The Advocate}
+
+\begin{itemize}[leftmargin=*]
+\item Focused on awareness and policy change
+\item May connect community to external opportunities
+\item Often highly engaged and vocal
+\end{itemize}
+
+\textbf{Platform Support:}
+\begin{itemize}[leftmargin=*]
+\item Advocacy information sharing
+\item Connection to research and policy opportunities
+\item Channels for advocacy-related discussions
+\end{itemize}
+
+\subsection{The Information Curator}
+
+\begin{itemize}[leftmargin=*]
+\item Collects and shares resources
+\item Answers common questions
+\item May create guides or summaries
+\end{itemize}
+
+\textbf{Platform Support:}
+\begin{itemize}[leftmargin=*]
+\item Tools for content curation
+\item Recognition of contributions
+\item Resource library integration
+\end{itemize}
+
+\subsection{The Supporter}
+
+\begin{itemize}[leftmargin=*]
+\item Provides emotional support to others
+\item Responds to distress posts
+\item Creates welcoming atmosphere
+\end{itemize}
+
+\textbf{Platform Support:}
+\begin{itemize}[leftmargin=*]
+\item Crisis response training
+\item Recognition of support contributions
+\item Tools for reaching out to isolated members
+\end{itemize}
+
+\section{Balancing Hope and Realism}
+
+\subsection{The Challenge}
+
+Terminal illness communities must navigate:
+\begin{itemize}[leftmargin=*]
+\item Newly diagnosed need hope to cope
+\item False hope can lead to poor decisions
+\item Long-term survivors may create unrealistic expectations
+\item Honest prognosis discussion can be devastating
+\item Individual variation makes generalizations difficult
+\end{itemize}
+
+\subsection{Principles}
+
+\textbf{Accuracy:}
+\begin{itemize}[leftmargin=*]
+\item Present data honestly, including outcomes
+\item Acknowledge uncertainty
+\item Avoid cherry-picking survivor stories
+\item Provide context for individual experiences
+\end{itemize}
+
+\textbf{Compassion:}
+\begin{itemize}[leftmargin=*]
+\item Allow space for hope
+\item Don't force confrontation with mortality
+\item Recognize individual coping styles
+\item Support those choosing different approaches
+\end{itemize}
+
+\textbf{Empowerment:}
+\begin{itemize}[leftmargin=*]
+\item Focus on what patients can control
+\item Highlight quality of life alongside survival
+\item Support informed decision-making
+\item Respect patient autonomy
+\end{itemize}
+
+\section{Moderation Practices}
+
+\subsection{Community-Driven Moderation}
+
+\begin{itemize}[leftmargin=*]
+\item Clear community guidelines developed with member input
+\item Flagging and reporting mechanisms
+\item Peer-to-peer norm enforcement
+\item Graduated response to violations
+\end{itemize}
+
+\subsection{Professional Moderation}
+
+\begin{itemize}[leftmargin=*]
+\item Trained moderators for sensitive issues
+\item Crisis response protocols
+\item Review of flagged content
+\item Consistency in enforcement
+\end{itemize}
+
+\subsection{Special Situations}
+
+\textbf{Crisis Situations:}
+\begin{itemize}[leftmargin=*]
+\item Suicide ideation protocols
+\item Medical emergency response
+\item Connection to crisis resources
+\item Training for community members to recognize and respond
+\end{itemize}
+
+\textbf{Harassment and Conflict:}
+\begin{itemize}[leftmargin=*]
+\item Clear anti-harassment policies
+\item Confidential reporting mechanisms
+\item Fair investigation processes
+\item Account suspension/ban policies
+\end{itemize}
+
+\section{Assumptions Requiring Validation}
+
+\begin{enumerate}[leftmargin=*]
+\item Users want community features alongside data sharing
+\item Death/grief discussions are desired vs. avoided
+\item Peer moderation is acceptable to community
+\item Professional moderation is needed for specific issues
+\item Hope and realism can coexist on same platform
+\end{enumerate}
+
+\section{Suggested Interview Questions}
+
+\begin{enumerate}[leftmargin=*]
+\item What kind of community support would be most helpful to you?
+\item How do you feel about discussions of death and prognosis?
+\item Have you encountered misinformation about GBM? How did you evaluate it?
+\item What would make you feel safe and supported in an online community?
+\item How do you think a community should handle it when a member passes away?
+\item What kind of moderation would you expect in a GBM community?
+\end{enumerate}
+
+\chapter{Ethical Framework}
+
+\section{Foundational Principles: The Belmont Report}
+
+The Belmont Report (1979) established three core principles for ethical research involving human subjects that provide foundational guidance for patient data platforms:
+
+\subsection{Respect for Persons}
+
+\textbf{Core Concept:} Individuals should be treated as autonomous agents; persons with diminished autonomy are entitled to protection.
+
+\textbf{Application to We4Us-GBM:}
+\begin{itemize}[leftmargin=*]
+\item Informed consent: Users must understand what they're agreeing to
+\item Voluntary participation: No coercion or undue pressure to share data
+\item Right to withdraw: Easy exit with data deletion
+\item Special consideration for cognitive impairment: GBM patients may have reduced capacity; consent processes must accommodate this
+\item Caregiver consent considerations: When is it appropriate for caregivers to share patient information?
+\end{itemize}
+
+\subsection{Beneficence}
+
+\textbf{Core Concept:} Maximize benefits and minimize harms.
+
+\textbf{Application to We4Us-GBM:}
+\begin{itemize}[leftmargin=*]
+\item Benefits: Peer support, information access, potential research contributions
+\item Potential harms: Privacy violations, psychological distress, misinformation
+\item Design obligation: Structure platform to maximize benefit/harm ratio
+\item Ongoing assessment: Monitor for unanticipated harms
+\end{itemize}
+
+\subsection{Justice}
+
+\textbf{Core Concept:} Fair distribution of benefits and burdens of research.
+
+\textbf{Application to We4Us-GBM:}
+\begin{itemize}[leftmargin=*]
+\item Accessibility: Platform should serve diverse patients, not only privileged groups
+\item Benefit sharing: Insights should return to contributing community
+\item Avoiding exploitation: Vulnerable users should not bear disproportionate burden
+\item Equity: Consider barriers faced by underserved communities
+\end{itemize}
+
+\section{Patient Data Ethics: Specific Considerations}
+
+\subsection{Data Ownership and Stewardship}
+
+\textbf{Key Questions:}
+\begin{itemize}[leftmargin=*]
+\item Who ``owns'' patient-generated health data?
+\item What obligations does the platform have as data steward?
+\item How should benefits from data use be distributed?
+\end{itemize}
+
+\textbf{Ethical Position:}
+\begin{itemize}[leftmargin=*]
+\item Patients own their data
+\item Platform is steward, not owner
+\item Stewardship entails obligations: security, transparency, return of value
+\item Any commercial benefit should be transparent and, where possible, shared
+\end{itemize}
+
+\subsection{Posthumous Data Ethics}
+
+\textbf{Challenges:}
+\begin{itemize}[leftmargin=*]
+\item Deceased individuals cannot provide ongoing consent
+\item Data may have value for research and community
+\item Family members may have interests in data
+\item Privacy interests may persist after death
+\end{itemize}
+
+\textbf{Ethical Framework:}
+\begin{itemize}[leftmargin=*]
+\item Respect advance directives about data handling
+\item Default to privacy protection
+\item Allow designation of data steward
+\item Consider family interests while protecting patient autonomy
+\item Data contribution to aggregated insights may continue with appropriate consent
+\end{itemize}
+
+\subsection{Surfacing Distressing Information}
+
+\textbf{The Dilemma:}
+Aggregated data may reveal patterns that could distress individual patients (e.g., survival curves, treatment failure rates).
+
+\textbf{Ethical Considerations:}
+\begin{itemize}[leftmargin=*]
+\item Patients have right to know information relevant to their care
+\item Some patients may not want to see distressing statistics
+\item Information presentation affects emotional impact
+\item Individual variation means aggregate data may not apply to specific case
+\end{itemize}
+
+\textbf{Recommendations:}
+\begin{itemize}[leftmargin=*]
+\item User control over exposure to potentially distressing data
+\item Contextualization of statistics (``this is average, individual cases vary'')
+\item Gradual disclosure with user control
+\item Support resources alongside difficult information
+\end{itemize}
+
+\subsection{Protecting Vulnerable Users}
+
+\textbf{Vulnerability Factors:}
+\begin{itemize}[leftmargin=*]
+\item Desperation from terminal diagnosis
+\item Cognitive impairment
+\item Financial stress
+\item Emotional distress affecting judgment
+\end{itemize}
+
+\textbf{Protection Mechanisms:}
+\begin{itemize}[leftmargin=*]
+\item Screening for predatory content (scams, fraudulent treatments)
+\item Watchful community norms
+\item Crisis response protocols
+\item Connection to professional support resources
+\item Caregiver involvement options
+\end{itemize}
+
+\section{Research Ethics Integration}
+
+\subsection{When Platform Data Becomes Research}
+
+\textbf{Research Activities:}
+\begin{itemize}[leftmargin=*]
+\item Formal studies using platform data
+\item Publications based on aggregated insights
+\item Partnership with academic researchers
+\item Collaborations with pharmaceutical companies
+\end{itemize}
+
+\textbf{Ethical Requirements:}
+\begin{itemize}[leftmargin=*]
+\item Separate consent for research use
+\item IRB oversight for formal research
+\item Transparency about research activities
+\item Return of findings to community
+\end{itemize}
+
+\subsection{Community-Based Participatory Research Model}
+
+\begin{itemize}[leftmargin=*]
+\item Involve community in research priority setting
+\item Patient partners in research design
+\item Community review of research proposals
+\item Accessible communication of findings
+\item Benefits return to community
+\end{itemize}
+
+\section{Balancing Individual Privacy with Collective Benefit}
+
+\subsection{The Tension}
+
+\begin{itemize}[leftmargin=*]
+\item Greater data sharing enables better community insights
+\item Individual privacy interests may limit data availability
+\item Aggregate benefit depends on sufficient individual contributions
+\item No individual is obligated to sacrifice privacy for collective good
+\end{itemize}
+
+\subsection{Ethical Framework}
+
+\textbf{Principles:}
+\begin{itemize}[leftmargin=*]
+\item Individual consent is paramount
+\item No coercion to share data
+\item Collective benefit is real but doesn't override individual rights
+\item Design should maximize benefit while respecting privacy choices
+\end{itemize}
+
+\textbf{Implementation:}
+\begin{itemize}[leftmargin=*]
+\item Make privacy-respecting participation easy
+\item Communicate value of data sharing without pressure
+\item Offer graduated sharing options
+\item Return value to contributors
+\end{itemize}
+
+\section{Platform Governance Ethics}
+
+\subsection{Patient Voice in Governance}
+
+\begin{itemize}[leftmargin=*]
+\item Patients and caregivers should have meaningful input
+\item Advisory boards with patient representation
+\item Community feedback mechanisms
+\item Transparency about governance decisions
+\end{itemize}
+
+\subsection{Conflict of Interest Management}
+
+\begin{itemize}[leftmargin=*]
+\item Disclose funding sources and partnerships
+\item Manage conflicts between commercial and patient interests
+\item Prioritize patient benefit in conflicting situations
+\item External oversight for major decisions
+\end{itemize}
+
+\section{Preventing Exploitation}
+
+\subsection{Types of Exploitation Risk}
+
+\begin{itemize}[leftmargin=*]
+\item Fraudulent treatment promoters targeting desperate patients
+\item Commercial entities extracting value without fair return
+\item Research that doesn't benefit the patient community
+\item Emotional manipulation of vulnerable users
+\end{itemize}
+
+\subsection{Protective Measures}
+
+\begin{itemize}[leftmargin=*]
+\item Content policies prohibiting fraudulent claims
+\item Verification of any ``expert'' claims
+\item Transparent commercial relationships
+\item Community watch for suspicious actors
+\item Education about common scams
+\item Easy reporting mechanisms
+\end{itemize}
+
+\section{Assumptions Requiring Validation}
+
+\begin{enumerate}[leftmargin=*]
+\item Users understand and value ethical principles
+\item Privacy controls are sufficient for user comfort
+\item Users want governance participation
+\item Transparency is valued even if it reveals uncomfortable facts
+\item Ethical operation is trusted
+\end{enumerate}
+
+\section{Suggested Interview Questions}
+
+\begin{enumerate}[leftmargin=*]
+\item What would you want to happen to your data if you were no longer able to manage it?
+\item How do you feel about seeing survival statistics and outcome data?
+\item Have you encountered anyone trying to take advantage of GBM patients?
+\item What role would you want in how the platform is run?
+\item What would make you confident that a platform is acting in patients' best interests?
+\end{enumerate}
+
+\chapter{Synthesis: Design Principles for We4Us-GBM}
+
+Based on this comprehensive research synthesis, the following design principles emerge for the We4Us-GBM platform:
+
+\section{Core Design Principles}
+
+\subsection{Patient-Centered Design}
+
+\begin{enumerate}[leftmargin=*]
+\item Design for crisis: Newly diagnosed users are overwhelmed; prioritize clarity and simplicity
+\item Accommodate cognitive impairment: GBM affects cognition; design must be accessible
+\item Serve multiple archetypes: Information seekers, connection seekers, and optimizers have different needs
+\item Include caregivers: They have distinct needs and significantly impact patient outcomes
+\item Respect the journey: Needs evolve from diagnosis through treatment through progression
+\end{enumerate}
+
+\subsection{Trust-First Architecture}
+
+\begin{enumerate}[leftmargin=*]
+\item Radical transparency: Every data use clearly explained
+\item User control: Granular, easily managed privacy preferences
+\item Return value: Insights flow back to those who contribute
+\item Security by design: Protect data as if breach is inevitable
+\item Patient ownership: Users own their data; platform is steward
+\end{enumerate}
+
+\subsection{Community-Centered Approach}
+
+\begin{enumerate}[leftmargin=*]
+\item Balance hope and realism: Acknowledge mortality while supporting hope
+\item Handle death with dignity: Clear protocols for community grief
+\item Protect from exploitation: Active defense against predators and misinformation
+\item Foster peer support: Enable meaningful connection with similar patients
+\item Involve community in governance: Patients shape platform direction
+\end{enumerate}
+
+\subsection{Clinical Relevance}
+
+\begin{enumerate}[leftmargin=*]
+\item Capture clinically meaningful data: MGMT status, treatment protocols, outcomes
+\item Connect patient experience to medical evidence: Synthesize peer data with published research
+\item Never replace medical care: Frame all insights as ``questions for your doctor''
+\item Outcome metrics that matter: Include quality of life, not just survival
+\item Evidence context: Distinguish anecdote from evidence
+\end{enumerate}
+
+\section{Critical Success Factors}
+
+\begin{enumerate}[leftmargin=*]
+\item \textbf{Clear value proposition:} Users must quickly see what they get from participating
+\item \textbf{Low friction data entry:} Make sharing easy despite the burden of illness
+\item \textbf{Meaningful peer matching:} ``Patients like me'' based on clinically relevant characteristics
+\item \textbf{Trustworthy data practices:} Build and maintain trust through consistent ethical operation
+\item \textbf{Community safety:} Protect vulnerable users from harm
+\item \textbf{Sustainable operation:} Business model that aligns with patient interests
+\end{enumerate}
+
+\section{Key Uncertainties Requiring User Research}
+
+This synthesis identifies numerous assumptions requiring validation through direct patient and caregiver interviews. Priority areas include:
+
+\begin{enumerate}[leftmargin=*]
+\item Willingness to share detailed treatment and outcome data
+\item Acceptable identity management (anonymous vs. pseudonymous vs. identified)
+\item Tolerance for distressing information (survival statistics, outcomes data)
+\item Caregiver-specific platform needs and willingness to share patient data
+\item Preferred community features and moderation approaches
+\item Attitudes toward data use for research and commercial purposes
+\item Trust-building requirements specific to GBM community
+\end{enumerate}
+
+\section{Recommended Next Steps}
+
+\begin{enumerate}[leftmargin=*]
+\item \textbf{User Research:} Conduct interviews with GBM patients and caregivers using questions suggested throughout this document
+\item \textbf{Competitive Deep Dive:} More detailed analysis of existing GBM community platforms
+\item \textbf{Legal Review:} Formal legal analysis of regulatory obligations
+\item \textbf{Technical Architecture:} Design data model to capture clinically meaningful information
+\item \textbf{Advisory Board Formation:} Recruit patient advisors to guide development
+\item \textbf{Pilot Planning:} Design limited pilot to test core assumptions
+\end{enumerate}
+
+\chapter*{Conclusion}
+\addcontentsline{toc}{chapter}{Conclusion}
+
+Glioblastoma patients and their caregivers navigate one of medicine's most challenging diagnoses with fragmented information and scattered peer support. The research synthesized in this document reveals both the profound need for a platform like We4Us-GBM and the substantial challenges involved in creating one responsibly.
+
+The opportunity is clear: patients want to learn from others' experiences, share their own journeys, and make informed decisions alongside their medical teams. The challenges are equally clear: privacy concerns, trust deficits, vulnerable populations, regulatory complexity, and the profound emotional weight of terminal illness.
+
+Success will require unwavering commitment to patient-centered design, radical transparency, robust privacy protections, and genuine community governance. It will require navigating the delicate balance between hope and realism, between individual privacy and collective benefit, between data-driven insights and human connection.
+
+Most importantly, it will require listening---to patients, to caregivers, to the GBM community---and letting their voices guide the platform's development. This research synthesis provides a foundation, but the real experts are those living with this disease.
+
+The goal is ambitious but worthy: ensuring that no one navigates a GBM diagnosis alone, and that the collective experience of the GBM community becomes a resource for those who follow.
+
+\vspace{1cm}
+
+\textit{``Because no one should navigate this diagnosis alone, and collective experience is too valuable to stay scattered across waiting rooms and support groups.''}
+
+\end{document}

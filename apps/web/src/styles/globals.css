@@ -1,0 +1,257 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS Variables for theming - Light Mode (default) */
+:root {
+  --radius: 0.75rem;
+
+  /* Sage Green color palette - Light Mode */
+  --color-background: #fafbf8;
+  --color-surface: #fefefe;
+  --color-surface-elevated: #ffffff;
+
+  /* Primary - Sage Green */
+  --color-primary: #5a8a5a;
+  --color-primary-hover: #476e47;
+  --color-primary-light: #e4ebe4;
+
+  /* Secondary - Warm Gold accent */
+  --color-secondary: #e9b93f;
+  --color-secondary-hover: #d49b24;
+  --color-secondary-light: #fef8e1;
+
+  /* Accent colors */
+  --color-accent-gold: #e9b93f;
+  --color-accent-forest: #527852;
+  --color-accent-warm: #e26b4a;
+
+  /* Text colors for accessibility */
+  --color-text-primary: #1e251d;
+  --color-text-secondary: #405d40;
+  --color-text-muted: #7d8a75;
+
+  /* Borders and dividers */
+  --color-border: #dde2d8;
+  --color-border-light: #eaede6;
+
+  /* Focus states */
+  --focus-ring-color: #5a8a5a;
+  --focus-ring-width: 3px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(30, 37, 29, 0.05);
+  --shadow-md: 0 4px 6px rgba(30, 37, 29, 0.07);
+  --shadow-lg: 0 10px 15px rgba(30, 37, 29, 0.1);
+}
+
+/* Dark Mode */
+.dark {
+  --color-background: #131913;
+  --color-surface: #1e251d;
+  --color-surface-elevated: #252d24;
+
+  /* Primary - Sage Green (lighter for dark mode) */
+  --color-primary: #84aa84;
+  --color-primary-hover: #a3bfa3;
+  --color-primary-light: #2a3f2a;
+
+  /* Secondary - Warm Gold */
+  --color-secondary: #f5d06a;
+  --color-secondary-hover: #f9e29a;
+  --color-secondary-light: #3a3520;
+
+  /* Accent colors (adjusted for dark mode) */
+  --color-accent-gold: #f5d06a;
+  --color-accent-forest: #84aa84;
+  --color-accent-warm: #ed8c73;
+
+  /* Text colors */
+  --color-text-primary: #f4f6f2;
+  --color-text-secondary: #cfd6c9;
+  --color-text-muted: #9aa692;
+
+  /* Borders and dividers */
+  --color-border: #3a4238;
+  --color-border-light: #2d352b;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Base styles with cognitive accessibility */
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 18px; /* Larger base for accessibility */
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    font-family: 'Inter', system-ui, sans-serif;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', system-ui, sans-serif;
+    @apply font-semibold tracking-tight;
+    color: var(--color-text-primary);
+  }
+
+  p {
+    color: var(--color-text-secondary);
+  }
+
+  /* Clear focus indicators for accessibility */
+  :focus-visible {
+    outline: var(--focus-ring-width) solid var(--focus-ring-color);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Minimum touch targets */
+  button,
+  a,
+  input,
+  select,
+  [role="button"] {
+    min-height: 44px;
+  }
+
+  /* Smooth theme transitions */
+  * {
+    transition-property: background-color, border-color, color;
+    transition-duration: 0.15s;
+    transition-timing-function: ease;
+  }
+}
+
+/* Utility classes for accessibility */
+@layer utilities {
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .touch-target-lg {
+    min-height: 48px;
+    min-width: 48px;
+  }
+
+  /* High contrast text */
+  .text-accessible {
+    color: var(--color-text-primary);
+  }
+
+  .text-accessible-secondary {
+    color: var(--color-text-secondary);
+  }
+
+  .text-muted {
+    color: var(--color-text-muted);
+  }
+
+  /* Surface colors */
+  .bg-surface {
+    background-color: var(--color-surface);
+  }
+
+  .bg-surface-elevated {
+    background-color: var(--color-surface-elevated);
+  }
+
+  /* Gradient backgrounds - Light Mode (Sage Green) */
+  .bg-gradient-warm {
+    background: linear-gradient(135deg, #fafbf8 0%, #f4f6f2 50%, #eaede6 100%);
+  }
+
+  .bg-gradient-hero {
+    background: linear-gradient(180deg, #fafbf8 0%, #f4f7f4 50%, #e4ebe4 100%);
+  }
+
+  .bg-gradient-forest {
+    background: linear-gradient(135deg, #f4f7f4 0%, #e8efe8 50%, #d1dfd1 100%);
+  }
+
+  /* Dark mode gradients */
+  .dark .bg-gradient-warm {
+    background: linear-gradient(135deg, #131913 0%, #1e251d 50%, #252d24 100%);
+  }
+
+  .dark .bg-gradient-hero {
+    background: linear-gradient(180deg, #131913 0%, #181e17 50%, #1e251d 100%);
+  }
+
+  .dark .bg-gradient-forest {
+    background: linear-gradient(135deg, #1e251d 0%, #252d24 50%, #2d352b 100%);
+  }
+
+  /* Night sky gradient for memorial section */
+  .bg-gradient-night {
+    background: linear-gradient(180deg, #181e17 0%, #131913 50%, #0b0f0b 100%);
+  }
+
+  /* Card styles */
+  .card {
+    background-color: var(--color-surface-elevated);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--color-border-light);
+  }
+
+  .card-hover {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* Button styles */
+  .btn-primary {
+    background-color: var(--color-primary);
+    color: white;
+    border-radius: var(--radius);
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-primary-hover);
+  }
+
+  .btn-secondary {
+    background-color: var(--color-secondary);
+    color: white;
+    border-radius: var(--radius);
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--color-secondary-hover);
+  }
+}
+
+/* Reduced motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
