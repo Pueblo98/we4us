@@ -15,6 +15,8 @@ const buttonVariants = cva(
         gold: "bg-gold-500 text-dark-500 hover:bg-gold-600 dark:bg-gold-400 dark:hover:bg-gold-300 shadow-lg",
         forest: "bg-forest-500 text-white hover:bg-forest-600 dark:bg-forest-400 dark:hover:bg-forest-300 dark:text-dark-500 shadow-lg",
         warm: "bg-warm-500 text-white hover:bg-warm-600 dark:bg-warm-400 dark:hover:bg-warm-300 shadow-lg",
+        coral: "bg-coral-500 text-white hover:bg-coral-600 dark:bg-coral-400 dark:hover:bg-coral-300 dark:text-dark-500 shadow-lg",
+        healing: "bg-healing-500 text-white hover:bg-healing-600 dark:bg-healing-400 dark:hover:bg-healing-300 dark:text-dark-500 shadow-lg",
       },
       size: {
         default: "h-12 px-6 py-3",
